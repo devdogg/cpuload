@@ -15,6 +15,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QTimer *timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(recount()));
     timer->start(1000);
+    double value = this->getCpuLoadValue();
+    ui->cpuNumber->display(value);
+    ui->progressBar->setValue(value);
+    ui->progressBar->setFormat(QString::number(value, 'f', 2)+"%");
 }
 
 MainWindow::~MainWindow()
@@ -40,5 +44,8 @@ double MainWindow::getCpuLoadValue()
 
 void MainWindow::recount()
 {
-    ui->cpuNumber->display(this->getCpuLoadValue());
+    double value = this->getCpuLoadValue();
+    ui->cpuNumber->display(value);
+    ui->progressBar->setValue(value);
+    ui->progressBar->setFormat(QString::number(value, 'f', 2)+"%");
 }
